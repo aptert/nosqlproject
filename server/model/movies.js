@@ -1,4 +1,5 @@
 var mongoose = require("mongoose")
+console.log("lol")
 
 var movieSchema = mongoose.Schema({
     title:{
