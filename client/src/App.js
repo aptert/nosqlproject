@@ -19,7 +19,7 @@ class App extends Component {
        <SearchBar
        onChange={(value)=> this.setState({searchValue: value})}
        onRequestSearch={() => {
-         console.log(this.state.value)
+         console.log("anthony lol")
        } }
        />
       
