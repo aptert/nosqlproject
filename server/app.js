@@ -2,14 +2,19 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var search = require('./routes/search');
+var route = require('./routes/search');
 var add = require('./routes/add');
 
 var app = express();
 
+//To work at home
+var localURL = 'mongodb://localhost:27017'
+
+//To export
+var cloudURL = 'mongodb://root:root@ds213759.mlab.com:13759/nosqlproject'
 //Mongoose connection
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://root:root@ds213759.mlab.com:13759/nosqlproject')
+mongoose.connect(cloudURL)
   .then(() => {console.log('Connected to the database!')})
   .catch(err => {console.log("Connection Error " + err)})
 
@@ -18,13 +23,13 @@ var port = 3001;
 app.listen(port, ()=> {
   console.log('Listening on port ' + port + "...")
 })
-app.use('/api/search', search);
-app.use('/api/add', add);
+app.use('/api/', route);
 app.get('/', (req, res) => {
   res.send("go to /api")
 })
 
-
+app.engine('jade', require('jade').renderFile);
+app.set('view engine', 'jade');
 
 
 
