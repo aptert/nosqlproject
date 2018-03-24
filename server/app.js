@@ -18,6 +18,7 @@ mongoose.connect(cloudURL)
   .then(() => {console.log('Connected to the database!')})
   .catch(err => {console.log("Connection Error " + err)})
 
+app.use(bodyParser.urlencoded({extended: true}))
 //Starting server
 var port = 3001;
 app.listen(port, ()=> {
