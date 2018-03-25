@@ -41,13 +41,30 @@ module.exports.findMovie = (req, res) => {
             }
         })
     }
+    /*If we want a rating lte */
+    if(query.rating_lte){
+        rating = query.rating_lte
+        delete query.rating_lte
+        movie.find(query)
+            .where("rating").lte(rating)
+            .exec((err, movie)=>{
+            if(err){res.send(err)}
+            else{
+                res.json(movie)
+            }
+        })
+    }
+
     //var query = "db.getCollection('movies').find("+JSON.stringify(query)+")"
-    movie.find(query).exec((err, movie)=>{
-        if(err){res.send(err)}
-        else{
-            res.json(movie)
-        }
-    })
+    else{
+        movie.find(query).exec((err, movie)=>{
+            if(err){res.send(err)}
+            else{
+                res.json(movie)
+            }
+        })
+    }
+    
 
     
 }
