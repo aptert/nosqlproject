@@ -30,19 +30,19 @@
 				</span>
 
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Title">
-					<span class="label-input100">Title *</span>
+					<span class="label-input100">Title</span>
 					<input class="input100" id="title" placeholder="Search by Title">
 				</div>
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your year">
-					<span class="label-input100">Year *</span>
+					<span class="label-input100">Year</span>
 					<input class="input100" id="year" placeholder="Search by Year">
 				</div>
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your directors">
-					<span class="label-input100">Directors *</span>
+					<span class="label-input100">Directors</span>
 					<input class="input100" id="directors" placeholder="Search by Directors">
 				</div>
 				<div class="wrap-input100 input100-select bg1">
-					<span class="label-input100">Needed Services *</span>
+					<span class="label-input100">Needed Services</span>
 					<div>
 						<select id="rating" class="js-select2" name="service">
 							<option>Not Interrested </option>
@@ -86,7 +86,12 @@
 							</div>
 						</div>
 				</div>
-				<input id="submit" value="Submit" style="text-align: center" class="contact100-form-btn"/>
+				
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your date">
+					<span class="label-input100">Release Date (yyyy-mm-dd)</span>
+					<input class="input100" id="date" placeholder="Search by Date (yyyy-mm-dd)">
+				</div>
+				<input id="submit" type"button" value="Submit" style="text-align: center" class="contact100-form-btn"/>
 			</form>
 		</div>
 	</div>
@@ -175,13 +180,20 @@
 			if(title != ""){
 				url += "title="+title+"&"
 			}
+
 			var year = $("#year").val();
 			if(year != ""){
 				url += "year="+year+"&"
 			}
+
 			var directors = $("#directors").val();
 			if(directors != ""){
 				url += "directors="+directors+"&"
+			}
+			
+			var date = $("#date").val();
+			if(date != ""){
+				url += "release_date="+date+"&"
 			}
 			
 			var rating = $("#rating").val()
@@ -207,7 +219,7 @@
 					data.forEach(element => {
 						$(".bodyTable").append("<tr class=\"row100 body\"><td class=\"cell100 column1\">"+element.title+"</td>"+
 						"<td class=\"cell100 column1\">"+element.plot+"</td>"+
-						"<td class=\"cell100 column1\">"+element.year+"</td>"+
+						"<td class=\"cell100 column1\">"+element.year+ " (date: " + element.release_date + ")</td>"+
 						"<td class=\"cell100 column1\">"+element.directors+"</td>"+
 						"<td class=\"cell100 column1\">"+element.rating+"</td></tr>"
 						)

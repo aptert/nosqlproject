@@ -10,14 +10,12 @@
 
 Se connecter au localhost:3001/api
 
-## Routes
+## Route
 
 */search* 
-
-*/add* 
 
 # Params
 
 Même noms de parametres que dans movies.json
 
-Pour gte/lte --> *nomduparam_gte ou nomduparam_lte
+Pour gte/lte --> *nomduparam_gte* ou *nomduparam_lte*
