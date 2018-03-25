@@ -5,7 +5,6 @@ var fs = require("fs")
 var path = require("path")
 
 var route = require('./routes/search');
-var add = require('./routes/add');
 
 var app = express();
 
