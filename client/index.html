@@ -22,7 +22,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-
+	<div style="margin-left: 14%">
 		<div class="wrap-contact100">
 			<form class="contact100-form ">
 				<span class="contact100-form-title">
@@ -31,49 +31,93 @@
 
 				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Title">
 					<span class="label-input100">Title *</span>
-					<input class="input100" id="title" placeholder="Enter Your Title">
+					<input class="input100" id="title" placeholder="Search by Title">
 				</div>
-					<input id="submit" value="Submit" style="text-align: center" class="contact100-form-btn">
-						
-					</input>
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your year">
+					<span class="label-input100">Year *</span>
+					<input class="input100" id="year" placeholder="Search by Year">
+				</div>
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your directors">
+					<span class="label-input100">Directors *</span>
+					<input class="input100" id="directors" placeholder="Search by Directors">
+				</div>
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Needed Services *</span>
+					<div>
+						<select id="rating" class="js-select2" name="service">
+							<option>Not Interrested </option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>10</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+
+					<div class="w-full dis-none js-show-service">
+							<div class="wrap-contact100-form-radio">
+		
+								<div class="contact100-form-radio m-t-15">
+									<input class="input-radio100" id="moreRadio" type="radio" name="type-product" value="physical" checked="checked">
+									<label class="label-radio100" for="moreRadio">
+										More than
+									</label>
+								</div>
+		
+								<div class="contact100-form-radio">
+									<input class="input-radio100" id="lessRadio" type="radio" name="type-product" value="digital">
+									<label class="label-radio100" for="lessRadio">
+										Less than
+									</label>
+								</div>
+		
+								<div class="contact100-form-radio">
+									<input class="input-radio100" id="exactRadio" type="radio" name="type-product" value="service">
+									<label class="label-radio100" for="exactRadio">
+										Exact rating
+									</label>
+								</div>
+							</div>
+						</div>
+				</div>
+				<input id="submit" value="Submit" style="text-align: center" class="contact100-form-btn"/>
 			</form>
 		</div>
+	</div>
 
-	<div class="limiter">
-		<div>
-
+	<div class="table100 ver1 m-b-110">
+		<div class="table100-head">
+			<table>
+				<thead>
+					<tr class="row100 head">
+						<th class="cell100 column1">Title</th>
+						<th class="cell100 column3">Plot</th>
+						<th class="cell100 column3">Year</th>
+						<th class="cell100 column4">Directors</th>
+						<th class="cell100 column5">Rating</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
-		<div class="container-table100">
-			<div class="wrap-table100">
-				<div class="table100 ver1 m-b-110">
-					<div class="table100-head">
-						<table>
-							<thead>
-								<tr class="row100 head">
-									<th class="cell100 column1">Title</th>
-									<th class="cell100 column3">Plot</th>
-									<th class="cell100 column3">Year</th>
-									<th class="cell100 column4">Directors</th>
-									<th class="cell100 column5">Rating</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
 
-					<div class="table100-body js-pscroll">
-						<table>
-							<tbody class="bodyTable">
-								<tr class="row100 body">
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				
-			</div>
+		<div class="table100-body js-pscroll">
+			<table>
+				<tbody class="bodyTable">
+					<tr class="row100 body">
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
+				
+			
 
 
 <!--===============================================================================================-->	
@@ -81,10 +125,15 @@
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="vendor/noui/nouislider.min.js"></script>
+	
 	<script>
 		$('.js-pscroll').each(function(){
 			var ps = new PerfectScrollbar(this);
@@ -93,6 +142,26 @@
 				ps.update();
 			})
 		});
+
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+
+
+			$(".js-select2").each(function(){
+				$(this).on('select2:close', function (e){
+					if($(this).val() == "Not Interrested ") {
+						$('.js-show-service').slideUp();
+					}
+					else {
+						$('.js-show-service').slideUp();
+						$('.js-show-service').slideDown();
+					}
+				});
+			});
+		})
 			
 		
 	</script>
@@ -103,8 +172,29 @@
 		function makeURL(){
 			var url = "/api/search?"
 			var title = $("#title").val();
-			if(title != undefined){
-				url += "title="+title
+			if(title != ""){
+				url += "title="+title+"&"
+			}
+			var year = $("#year").val();
+			if(year != ""){
+				url += "year="+year+"&"
+			}
+			var directors = $("#directors").val();
+			if(directors != ""){
+				url += "directors="+directors+"&"
+			}
+			
+			var rating = $("#rating").val()
+			if(rating != "Not Interrested"){
+				if($("#moreRadio").is(':checked')){
+					url+="rating_gte="+rating+"&"
+				}
+				if($("#lessRadio").is(':checked')){
+					url+="rating_lte="+rating+"&"
+				}
+				if($("#exactRadio").is(':checked')){
+					url+="rating="+rating+"&"
+				}
 			}
 			return url
 		}
