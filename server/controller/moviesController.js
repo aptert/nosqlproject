@@ -23,7 +23,6 @@ module.exports.findMovie = (req, res) => {
         query.rating = parseInt(query.rating)
     }
     
-    /*If we want an exact rank */
     if(query.rank){
         query.rank = parseInt(query.rank)
     }
@@ -69,8 +68,6 @@ module.exports.findMovie = (req, res) => {
     
 }
 
-module.exports.addMovie = (req, res) => {
-    movie.insert
-}
+
 
 
