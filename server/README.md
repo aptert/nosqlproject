@@ -1,8 +1,11 @@
 ## Pour lancer
 
-> cd server 
+> cd server
+
 > npm install
+
 > npm install nodemon
+
 > nodemon
 
 ## Requetes
