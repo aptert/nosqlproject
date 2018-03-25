@@ -1,6 +1,8 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require("fs")
+var path = require("path")
 
 var route = require('./routes/search');
 var add = require('./routes/add');
@@ -24,10 +26,14 @@ var port = 3001;
 app.listen(port, ()=> {
   console.log('Listening on port ' + port + "...")
 })
+
+//sending static files like css and js to the server 
+app.use(express.static(__dirname + '/../client'))
+
 app.use('/api/', route);
-app.get('/', (req, res) => {
-  res.send("go to /api")
-})
+// app.get('/home', (req, res) => {    
+//   res.sendFile(path.join(__dirname + '/../client/form.html'));
+// })
 
 app.engine('jade', require('jade').renderFile);
 app.set('view engine', 'jade');

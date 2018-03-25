@@ -1,0 +1,133 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+		<div class="wrap-contact100">
+			<form class="contact100-form ">
+				<span class="contact100-form-title">
+					Make your research
+				</span>
+
+				<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Title">
+					<span class="label-input100">Title *</span>
+					<input class="input100" id="title" placeholder="Enter Your Title">
+				</div>
+					<input id="submit" value="Submit" style="text-align: center" class="contact100-form-btn">
+						
+					</input>
+			</form>
+		</div>
+
+	<div class="limiter">
+		<div>
+
+		</div>
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Title</th>
+									<th class="cell100 column3">Plot</th>
+									<th class="cell100 column3">Year</th>
+									<th class="cell100 column4">Directors</th>
+									<th class="cell100 column5">Rating</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody class="bodyTable">
+								<tr class="row100 body">
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	<script>
+
+		function makeURL(){
+			var url = "/api/search?"
+			var title = $("#title").val();
+			if(title != undefined){
+				url += "title="+title
+			}
+			return url
+		}
+
+		$("#submit").click(() => {
+			$.ajax({
+				dataType: "json", 
+				url: (makeURL()), 
+				success: (data) => {
+					data.forEach(element => {
+						$(".bodyTable").append("<tr class=\"row100 body\"><td class=\"cell100 column1\">"+element.title+"</td>"+
+						"<td class=\"cell100 column1\">"+element.plot+"</td>"+
+						"<td class=\"cell100 column1\">"+element.year+"</td>"+
+						"<td class=\"cell100 column1\">"+element.directors+"</td>"+
+						"<td class=\"cell100 column1\">"+element.rating+"</td></tr>"
+						)
+					});
+				}
+			})
+		})
+
+		
+	</script>
+
+</body>
+</html>
