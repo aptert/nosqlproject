@@ -14,6 +14,7 @@ var localURL = 'mongodb://localhost:27017'
 
 //To export
 var cloudURL = 'mongodb://root:root@ds213759.mlab.com:13759/nosqlproject'
+
 //Mongoose connection
 var mongoose = require('mongoose')
 mongoose.connect(cloudURL)
@@ -31,9 +32,6 @@ app.listen(port, ()=> {
 app.use(express.static(__dirname + '/../client'))
 
 app.use('/api/', route);
-// app.get('/home', (req, res) => {    
-//   res.sendFile(path.join(__dirname + '/../client/form.html'));
-// })
 
 app.engine('jade', require('jade').renderFile);
 app.set('view engine', 'jade');
